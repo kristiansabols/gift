@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="UTF-8">
+  <title>Apsveikums!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Imperial Script Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Dancing Script', cursive;
+      background-color: #ffb5c0;
+      overflow-x: hidden;
+      text-align: center;
+      font-size: 1.39em;
+    }
+
+    h1 {
+      color: #d63384;
+      font-size: 2.8em;
+      margin-top: 40px;
+    }
+
+    .main-text {
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .heart {
+      font-size: 2em;
+      color: #ff69b4;
+      margin-top: 20px;
+    }
+
+    .bouquet {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .button-container {
+      margin-top: 20px;
+    }
+
+    button {
+      font-family: inherit;
+      font-size: 1em;
+      padding: 10px 25px;
+      margin: 10px;
+      border: 2px solid #ff69b4;
+      background-color: transparent;
+      color: #d63384;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff69b4;
+      color: white;
+    }
+
+    .content-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .photo1 {
+      width: 500px;
+      border-radius: 50px;
+      display: none;
+      animation: fadeIn 5s ease forwards;
+    }
+
+    .photo2 {
+      width: 500px;
+      border-radius: 50px;
+      display: none;
+      animation: fadeIn 5s ease forwards;
+    }
+
+    .show-photo {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .falling-petal,
+    .falling-heart {
+      position: fixed;
+      top: -10px;
+      font-size: 24px;
+      animation: fall linear infinite;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .falling-petal {
+      color: pink;
+    }
+
+    .falling-heart {
+      color: #ff1493;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Bouquet -->
+  <img src="https://res.cloudinary.com/dizexseir/image/upload/v1680348938/ProImages/hyduvpedhnnspxoz4nji.jpg" class="bouquet" id="bouquet" width="200" alt="buķete">
+
+  <h1>Priecīgu Māmiņdienu!</h1>
+
+  <div class="content-wrapper">
+    <img id="photo1" src="https://i.ibb.co/BHhdj3qq/IMG-9688.jpg" class="photo1" alt="mīļā bilde">
+
+    <div class="main-text">
+      <p><strong>Mīļo Mammu,</strong><br><br>
+        Paldies, ka vienmēr esi bijusi man līdzās ar savu sirsnību, sapratni un bezgalīgo mīlestību.
+        Tu esi mana iedvesma, mana drošākā vieta un cilvēks pie kura vienmēr varu vērsties. Bez tevis pasaule nebūtu tik skaista.
+        Es novēlu tev dienu, kas piepildīta ar smaidiem, mieru un mīlestību – tādu, kādu tu dāvā man katru dienu.<br>
+        Mīlu tevi no visas sirds.
+      </p>
+      <div class="heart">♥ ♥ ♥</div>
+      <div class="button-container">
+        <h2>Doties tālāk?</h2>
+        <button onclick="showPhotos()">Jā</button>
+        <button onclick="alertNo()">Nē</button>
+      </div>
+    </div>
+
+    <img id="photo2" src="https://i.ibb.co/m5DsMN1D/18de4a43-d87e-.%204717-b8cd-69dbed6be18c.jpg" class="photo2" alt="mīļā bilde 2">
+  </div>
+
+  <script>
+    const petals = [];
+
+    // Initial falling petals
+    for (let i = 0; i < 30; i++) {
+      let petal = document.createElement('div');
+      petal.className = 'falling-petal';
+      petal.textContent = '🌸';
+      petal.style.left = Math.random() * 100 + 'vw';
+      petal.style.animationDuration = (Math.random() * 5 + 3) + 's';
+      document.body.appendChild(petal);
+      petals.push(petal);
+    }
+
+    function showPhotos() {
+      // Hide bouquet
+      document.getElementById("bouquet").classList.add("hidden");
+
+      // Remove petals
+      petals.forEach(p => p.remove());
+
+      // Show photos
+      document.getElementById("photo1").classList.add("show-photo");
+      document.getElementById("photo2").classList.add("show-photo");
+
+      // Add falling hearts
+      for (let i = 0; i < 30; i++) {
+        let heart = document.createElement('div');
+        heart.className = 'falling-heart';
+        heart.textContent = '💖';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (Math.random() * 5 + 3) + 's';
+        document.body.appendChild(heart);
+      }
+    }
+
+    function alertNo() {
+      alert('Tev nav izvēle, spied "Jā"');
+    }
+  </script>
+
+</body>
+</html>
